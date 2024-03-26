@@ -1,66 +1,80 @@
-public class ConferenceEvent extends Event {
+public class ConferenceEvent{
+    
     private boolean breakfastRequired;
     private double breakfastCost;
     private boolean lunchRequired;
     private double lunchCost;
     private boolean dinnerRequired;
     private double dinnerCost;
-    private double eventCost;
     private double conferenceEventCost;
+    private String eventID;
+    private String eventName;
+    private String eventLocation;
+    private String pointOfContact;
+    private CalculateEventCostClass calculateEventCostObject;
+    private int totalParticipants;
+    private int totalEventDays;
+ 
+    public ConferenceEvent(String eventID, String eventName, String eventLocation, String pointOfContact, int totalParticipants, int totalEventDays,
+     double breakfastCost, double lunchCost, double dinnerCost) {
 
-    public ConferenceEvent(String eventID, String eventName, String eventLocation, String eventPointOfContact,
-                           double eventCost, int totalParticipants, int totalEventDays,
-                           boolean breakfastRequired, double breakfastCost,
-                           boolean lunchRequired, double lunchCost,
-                           boolean dinnerRequired, double dinnerCost) {
-        super(eventID, eventName, eventLocation, eventPointOfContact, eventCost, totalParticipants, totalEventDays);
-        this.breakfastRequired = breakfastRequired;
+        this.calculateEventCostObject = new CalculateEventCostClass();
+
+        this.eventID = eventID;
+        this.eventName = eventName;
+        this.eventLocation = eventLocation;
+        this.pointOfContact = pointOfContact;
         this.breakfastCost = breakfastCost;
-        this.lunchRequired = lunchRequired;
         this.lunchCost = lunchCost;
-        this.dinnerRequired = dinnerRequired;
         this.dinnerCost = dinnerCost;
-    }
-    public double getBreakfastCost(){
-        return breakfastCost;
-    }
-    public void setBreakfastCost(double BreakfastCost){
-        this.breakfastCost = breakfastCost;
-    }
-    public double getLunchCost() {
-        return lunchCost;
-    }
-    public void setLunchCost(double LunchCost){
-        this.lunchCost = lunchCost;
-    }
-    public double getDinnerCost() {
-        return dinnerCost;
-    }
-    public void setDinnerCost(double DinnerCostt){
-        this.dinnerCost = dinnerCost;
-    }
-    public double getEventCost() {
-        return eventCost;
-    }
-    public void setEventCost(double EventCost){
-        this.eventCost = eventCost;
-    }
+        this.totalParticipants = totalParticipants;
+        this.totalEventDays = totalEventDays;
+     }
 
+     public double getBreakfastCost() {
+         return breakfastCost;
+     }
+
+     public void setBreakfastCost(double breakfastCost) {
+         this.breakfastCost = breakfastCost;
+     }
+
+     public double getLunchCost() {
+         return lunchCost;
+     }
+
+     public void setLunchCost(double lunchCost) {
+         this.lunchCost = lunchCost;
+     }
+
+     public double getDinnerCost() {
+         return dinnerCost;
+     }
+
+     public void setDinnerCost(double dinnerCost) {
+         this.dinnerCost = dinnerCost;
+     }
+
+     public double getConferenceEventCost() {
+         return conferenceEventCost;
+     }
+
+     public void setConferenceEventCost(double conferenceEventCost) {
+         this.conferenceEventCost = conferenceEventCost;
+     }
+
+     
+     public void calculateEventCost() {
+       conferenceEventCost = calculateEventCostObject.calculateEventCost() + ((breakfastCost + lunchCost + dinnerCost) * totalParticipants * totalEventDays);
+     }
+   
     @Override
-    public void calculateEventCost(){
-       conferenceEventCost = getEventCost() + ((getBreakfastCost() + getLunchCost() + getDinnerCost()));
-    }
-
-    @Override
-    public String toString() {
-        String eventDetails = super.toString();
-        eventDetails += "\nBreakfast Required: " + breakfastRequired +
-                "\nBreakfast Cost: $" + breakfastCost +
-                "\nLunch Required: " + lunchRequired +
-                "\nLunch Cost: $" + lunchCost +
-                "\nDinner Required: " + dinnerRequired +
-                "\nDinner Cost: $" + dinnerCost;
-
-        return eventDetails;
-    }
+    public String toString(){
+        return "Conference Event details: " + "\n" +
+        "Event ID: " + eventID + "\n" +
+        "Event Name: " + eventName + "\n" +
+        "Event Location: " + eventLocation + "\n" +    
+        "Total Participants: " + totalParticipants + "\n" +
+        "Total Conference Cost: " + conferenceEventCost;
+    } 
 }
